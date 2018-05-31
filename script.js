@@ -3,7 +3,7 @@ Une petite fonction toute simple, pour appeler la fonction getJSON
 et déclencher l'affichage d'un peu tout sur appui d'un bouton côté client
 */
 function getHelp() {
-    var url = "http://khemys.com/testingStuff/jsonArray.json";
+    var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
     txt = getJSON(url);
     alert("Test : " + txt + "\n" + "URL : " + url);
 }
