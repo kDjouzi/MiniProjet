@@ -1,28 +1,26 @@
-/* Aidez-moi !
-Une petite fonction toute simple, pour appeler la fonction getJSON
-et déclencher l'affichage d'un peu tout sur appui d'un bouton côté client
-*/
-function getHelp() {
-    var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
-    txt = getJSON(url);
-    alert("Test : " + txt + "\n" + "URL : " + url);
-}
+//une URL isolée, serait-ce plus efficace ?
+var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
 
 /* Donnez-moi ce JSON !
 On entre dans le réel appel de l'API, sans pour autant formater quoi que ce soit.
 Pour le moment, l'idée est de tester que tout fonctionne... On rendra ça plus joli ensuite ;)
  */
-function getJSON(reqUrl) {
+function getJSON() {
     var xhr = new XMLHttpRequest(); //création de la requête
-    xhr.onreadystatechange = function() { //vérification de l'état de la requête
+    xhr.open("GET", url); //requête GET pour ouvrir reqUrl en mode asynchrone
+    
+    
+    xhr.addEventListener('readystatechange', function() { //vérification de l'état de la requête
         if (xhr.readyState == 4 && xhr.status == 200) { //si la requête est bien exécutée, et que la page existe...
-            callback(xhr.responseText); // ...on récupère le texte brut contenu dans l'API
-            console.log(xhr.responseText); //on logge également le tout dans la console pour tester ça !
+            console.log("La requête fonctionne !"); //...on logge le tout dans la console pour tester ça, et le script continue de s'exécuter...
+            console.log("JSON dans if : " + xhr.response); //...sans oublier de logger le JSON
+            document.getElementById("helpTest").innerHTML = xhr.responseText; //test de la manipulation de HTML
         } else {
-            return console.log("requête avec erreur : " + xhr.status); //s'il y a une erreur, on la logge
+            //On logge le statut et l'état de la requête
+            console.log("code HTML : " + xhr.status); 
+            console.log("Etat de la requête : " + xhr.readyState); 
         }
-    }
-    xhr.open("GET", reqUrl, true); //requête GET pour ouvrir reqUrl en mode asynchrone
+    });
+
     xhr.send(null); //on n'envoie rien
-    return xhr.responseText; //on retourne le contenu de la page
 }
