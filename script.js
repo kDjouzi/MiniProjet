@@ -10,17 +10,30 @@ var responseAwait = "loading...";
 function getJSON() {
     var xhr = new XMLHttpRequest(); //création de la requête
     xhr.open("GET", url); //requête GET pour ouvrir reqUrl en mode asynchrone
-    
-    
-    xhr.addEventListener('readystatechange', function() { //vérification de l'état de la requête
+
+
+    xhr.addEventListener('readystatechange', function () { //vérification de l'état de la requête
         if (xhr.readyState == 4 && xhr.status == 200) { //si la requête est bien exécutée, et que la page existe...
             console.log("La requête fonctionne !"); //...on logge le tout dans la console pour tester ça, et le script continue de s'exécuter...
             console.log("JSON dans if : " + xhr.response); //...sans oublier de logger le JSON
-            document.getElementById("helpBoxTest").innerHTML = xhr.responseText; //test de la manipulation de HTML
+            
+            var json = JSON.parse(xhr.response); //on parse le JSON dans une variable faite pour ça
+
+            console.log("var json = " + json);
+            
+            var htm = ""; //stocker le futur html dans une string
+            
+            //On parcourt le tableau du début à la fin, en insérant les données JSON dans les balises appropriées
+            for (var i = 0; i < json.length; i++) { 
+                htm += "<h1>" + json[i].Question + "</h1>";
+                htm += "<p>" + json[i].Reponse + "</p>";
+            }
+
+            document.getElementById("helpBoxTest").innerHTML = htm; //Et ça part sur la page !
         } else {
             //On logge le statut et l'état de la requête
-            console.log("code HTML : " + xhr.status); 
-            console.log("Etat de la requête : " + xhr.readyState); 
+            console.log("code HTML : " + xhr.status);
+            console.log("Etat de la requête : " + xhr.readyState);
         }
     });
 
@@ -28,7 +41,8 @@ function getJSON() {
     console.log("réponse : " + xhr.responseText);
 }
 
-function toggle(){
+//Affichage (ou non) de la div qui contiendra les questions
+function toggle() {
     getJSON();
     document.getElementById("helpBoxTest").classList.toggle("backToTheLight");
 }

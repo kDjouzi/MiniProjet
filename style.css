@@ -17,3 +17,7 @@
 .backToTheLight {
     display: block!important;
 }
+
+h1 {
+    display: block;
+}
