@@ -1,13 +1,23 @@
 //une URL isolée, serait-ce plus efficace ?
 var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
 
-//initialisation de la div contenant la FAQ (invisible pour le moment)
-//document.getElementById("container").appendChild('<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>');
-document.body.innerHTML += '<div id="FAQtoggler_kDjouziMiniProjet" onclick="FAQtoggle_kDjouziMiniProjet()">?</div><div id="helpBox_kDjouziMiniProjet"></div><input type="checkbox" id="isexpanded_kDjouziMiniProjet" />';
+//initialisation de la div contenant la FAQ 
 
+//Création d'un booléen pour remplacer la Checkbox précédemment utilisée
+var check = false;
 
-var div = document.getElementById("helpBox_kDjouziMiniProjet");
-div.style.right = "-300px";
+//Génération de la div servant à déclencher l'affichage de la "fenêtre" helpBox
+var FAQtoggler = document.createElement("div"); //Génération de la div
+FAQtoggler.id = "FAQtoggler_kDjouziMiniProjet"; //Ajout d'un identifiant unique
+FAQtoggler.setAttribute("onclick", "FAQtoggle_kDjouziMiniProjet()"); //Ajout du déclencheur onClick
+
+//Ajout du point d'interrogation dans FAQtoggler
+var inter = document.createTextNode("?");
+FAQtoggler.appendChild(inter);
+
+//Génération de la div helpBox
+var helpBox = document.createElement("div");
+helpBox.id = "helpBox_kDjouziMiniProjet";
 
 /* Donnez-moi ce JSON !
 Récupération et formatage du JSON avec balises HTML.
@@ -17,6 +27,21 @@ Téléchargement du JSON à l'ouverture de la page, pour éviter de le re-télé
 
 var xhr = new XMLHttpRequest(); //création de la requête
 xhr.open("GET", url); //requête GET pour ouvrir l'url en mode asynchrone
+
+var body = document.body;
+
+// [TEST] Génération de div
+/* var testElem = document.createElement("div");
+testElem.id = "thisIsATest";
+testElem.style = "background-color:green;";
+testElem.onmouseenter = "testFunc()";
+
+var insideTheTestElem = document.createTextNode("C'est plus propre comme ça");
+
+testElem.appendChild(insideTheTestElem);
+
+body.appendChild(testElem);
+*/
 
 
 xhr.addEventListener('readystatechange', function () {
@@ -39,8 +64,6 @@ xhr.addEventListener('readystatechange', function () {
             htm += "<p>" + json[i].Reponse + "</p>";
         }
 
-        //document.getElementsByClassName("helpBoxContent").innerHTML = htm;
-
         document.getElementById("helpBox_kDjouziMiniProjet").innerHTML = htm; //...Et ça part sur la page !
 
     } else {
@@ -53,36 +76,49 @@ xhr.addEventListener('readystatechange', function () {
 
 xhr.send(null); //on n'envoie rien
 
+//on lance l'injection du "bouton" et la helpBox dans le HTML
+console.log("Construction de la HelpBox...");
+generateHelpBoxAndButton();
+
+function generateHelpBoxAndButton() {
+
+    body.appendChild(FAQtoggler);
+    body.appendChild(helpBox);
+
+    console.log("HELPBOX CONSTRUITE");
+}
+
 //Affichage (ou non) de la div qui contiendra les questions
 function FAQtoggle_kDjouziMiniProjet() {
+    //mécanisme simple de checkbox avec le booléen
+    if (check == true) { check = false } else { check = true };
 
-    //document.getElementById("helpBox").classList.toggle("backToTheLight");
+    //utilisation du booléen pour lancer l'animation
+    FAQanimate(check);
 
-    //Pour '"cliquer" sur la checkbox
-    document.getElementById("isexpanded_kDjouziMiniProjet").click();
-
-    var cb = document.getElementById("isexpanded_kDjouziMiniProjet");
-
-    FAQanimate(cb);
+    //code de test : inclusion de la valeur de check dans les logs
     /*
-    if (cb.checked == true) {
-        console.log("isexpanded est maintenant cochée.");
+    if (check == true) {
+        console.log("Valeur de check => true");
     } else {
-        console.log("isexpanded n'est plus cochée.");
+        console.log("Valeur de check => false");
     }
     */
 
 }
 
 function FAQanimate(cb) {
-    var div = document.getElementById("helpBox_kDjouziMiniProjet");
-    if (cb.checked == true) {
-        console.log("isexpanded est maintenant cochée.");
+    //utilisation d'une variable dédiée pour les animations
+    var div = helpBox;
+    
+    //choix de l'animation à déclancher
+    if (cb == true) {
 
         //script d'animation d'entrée + fade-in
 
         //initialisation des valeurs de transparence et de position
         var pos = -300;
+        div.style.right = "-300px";
         var opacity = 0;
 
         //créations des intervalles pour les animations
@@ -104,7 +140,7 @@ function FAQanimate(cb) {
             if (opacity >= 1) {
                 clearInterval(opa);
             } else {
-                opacity += 0.8;
+                opacity += 0.5;
                 div.style.opacity = opacity.toString();
             }
         }
@@ -187,4 +223,3 @@ function populate() {
 
     document.getElementById("soManyBoxes").innerHTML = htm;
 }
-

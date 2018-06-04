@@ -84,5 +84,5 @@ h1 {
 
 /* Checkbox cachée */
 #isexpanded_kDjouziMiniProjet {
-    visibility: hidden;
+    z-index:-10;
 }
