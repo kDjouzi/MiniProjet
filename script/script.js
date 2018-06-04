@@ -3,10 +3,10 @@ var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
 
 //initialisation de la div contenant la FAQ (invisible pour le moment)
 //document.getElementById("container").appendChild('<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>');
-document.body.innerHTML += '<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div><input type="checkbox" id="isexpanded" />';
+document.body.innerHTML += '<div id="FAQtoggler_kDjouziMiniProjet" onclick="FAQtoggle_kDjouziMiniProjet()">?</div><div id="helpBox_kDjouziMiniProjet"></div><input type="checkbox" id="isexpanded_kDjouziMiniProjet" />';
 
 
-var div = document.getElementById("helpBox");
+var div = document.getElementById("helpBox_kDjouziMiniProjet");
 div.style.right = "-300px";
 
 /* Donnez-moi ce JSON !
@@ -41,7 +41,7 @@ xhr.addEventListener('readystatechange', function () {
 
         //document.getElementsByClassName("helpBoxContent").innerHTML = htm;
 
-        document.getElementById("helpBox").innerHTML = htm; //...Et ça part sur la page !
+        document.getElementById("helpBox_kDjouziMiniProjet").innerHTML = htm; //...Et ça part sur la page !
 
     } else {
         //On logge le statut et l'état de la requête, pour attraper une erreur s'il y a lieu
@@ -54,14 +54,14 @@ xhr.addEventListener('readystatechange', function () {
 xhr.send(null); //on n'envoie rien
 
 //Affichage (ou non) de la div qui contiendra les questions
-function FAQtoggle() {
+function FAQtoggle_kDjouziMiniProjet() {
 
     //document.getElementById("helpBox").classList.toggle("backToTheLight");
 
     //Pour '"cliquer" sur la checkbox
-    document.getElementById("isexpanded").click();
+    document.getElementById("isexpanded_kDjouziMiniProjet").click();
 
-    var cb = document.getElementById("isexpanded");
+    var cb = document.getElementById("isexpanded_kDjouziMiniProjet");
 
     FAQanimate(cb);
     /*
@@ -75,7 +75,7 @@ function FAQtoggle() {
 }
 
 function FAQanimate(cb) {
-    var div = document.getElementById("helpBox");
+    var div = document.getElementById("helpBox_kDjouziMiniProjet");
     if (cb.checked == true) {
         console.log("isexpanded est maintenant cochée.");
 
@@ -151,7 +151,7 @@ function FAQanimate(cb) {
 
         console.log(opacity);
 
-        var div = document.getElementById("helpBox");
+        var div = document.getElementById("helpBox_kDjouziMiniProjet");
 
 
         console.log("isexpanded n'est plus cochée.");
