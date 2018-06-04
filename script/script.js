@@ -2,6 +2,10 @@
 var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
 
 //initialisation de la div contenant la FAQ (invisible pour le moment)
+//document.getElementById("container").appendChild('<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>');
+document.body.innerHTML += '<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>';
+
+
 var div = document.getElementById("helpBox");
 div.style.right = "-300px";
 
@@ -92,7 +96,7 @@ function FAQanimate(cb) {
             } else {
                 pos += 10;
                 div.style.right = pos.toString() + "px";
-            }   
+            }
         }
 
         //animation de transparence
@@ -109,7 +113,7 @@ function FAQanimate(cb) {
         //var div = document.getElementById("helpBox");
         console.log(opacity);
 
-        if (pos != -300 || opacity != 0) {/* ne rien faire */}
+        if (pos != -300 || opacity != 0) {/* ne rien faire */ }
 
         //div.style.right = "10px";
 
@@ -132,11 +136,11 @@ function FAQanimate(cb) {
                 pos -= 10;
                 div.style.right = pos.toString() + "px";
             }
-            
+
         }
 
         //animation de transparence
-        function opAnimate () {
+        function opAnimate() {
             if (opacity <= 0) {
                 clearInterval(opa);
             } else {
