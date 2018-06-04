@@ -3,7 +3,7 @@ var url = "https://simplement-e-funcs.azurewebsites.net/api/HttpTriggerCSharp2";
 
 //initialisation de la div contenant la FAQ (invisible pour le moment)
 //document.getElementById("container").appendChild('<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>');
-document.body.innerHTML += '<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div>';
+document.body.innerHTML += '<div id="FAQtoggler" onclick="FAQtoggle()">?</div><div id="helpBox"></div><input type="checkbox" id="isexpanded" />';
 
 
 var div = document.getElementById("helpBox");
